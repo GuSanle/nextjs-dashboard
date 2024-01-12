@@ -12,3 +12,7 @@ For more information, see the [course curriculum](https://nextjs.org/learn) on t
 通过中间件判断访问来源：
 1. 如果是api请求，使用jwt认证
 2. 如果是页面请求，使用session认证
+
+
+## 注意
+文件名如果错误，会导致页面无法访问，比如middleware.ts后面多了一个空格，会导致中间件失效。坑了几天。。
