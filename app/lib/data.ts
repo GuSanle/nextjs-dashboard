@@ -1,14 +1,4 @@
-// import { sql } from '@vercel/postgres';
 import prisma from '@/prisma/db';
-// import {
-//   CustomerField,
-//   CustomersTableType,
-//   InvoiceForm,
-//   InvoicesTable,
-//   LatestInvoiceRaw,
-//   User,
-//   Revenue,
-// } from './definitions';
 import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from 'next/cache';
 
@@ -72,7 +62,7 @@ export async function fetchLatestInvoices() {
       ...invoice,
       amount: formatCurrency(invoice.amount),
     }));
-    console.log('latestInvoices', latestInvoices);
+    // console.log('latestInvoices', latestInvoices);
 
     return latestInvoices;
   } catch (error) {

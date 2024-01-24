@@ -37,6 +37,6 @@ npx prisma migrate dev --name init
 //重置数据库
 npx prisma migrate reset
 //添加初始数据
-npm run seed
+pnpm run seed
 //使用单例
 import prisma from '@/prisma/db';

@@ -40,6 +40,17 @@ model Customer {
   invoice   Invoice[]
 }
 
+//后期还需要加入账号的权限，规则
+model Token {
+  id        Int      @id @default(autoincrement())
+  domain    String
+  token     String   @unique
+  expireAt  DateTime
+  status    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 enum InvoiceStatus {
   paid
   pending

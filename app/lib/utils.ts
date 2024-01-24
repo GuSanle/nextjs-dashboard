@@ -1,4 +1,5 @@
 import { Revenue } from './definitions';
+import jwt from 'jsonwebtoken';
 
 export const formatCurrency = (amount: number) => {
   return (amount / 100).toLocaleString('en-US', {
@@ -66,4 +67,19 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
     '...',
     totalPages,
   ];
+};
+
+export const signJwt = (domain: string) => {
+  const secret = process.env.TOKEN_SECRET!;
+  const expiresIn = process.env.TOKEN_EXPIRES_IN;
+  const token = jwt.sign({ domain }, secret, {
+    expiresIn,
+  });
+  return token;
+};
+
+export const verifyJwt = (token: string) => {
+  const secret = process.env.TOKEN_SECRET!;
+  const decoded = jwt.verify(token.split(' ')[1], secret);
+  return decoded;
 };
