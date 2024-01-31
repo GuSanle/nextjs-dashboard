@@ -48,7 +48,7 @@ export default async function TokenTable({
                     </div>
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    <TokenValue token={token.token}></TokenValue>
+                    <TokenValue token={token.token} />
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {token.expireAt.toISOString().split('T')[0]}

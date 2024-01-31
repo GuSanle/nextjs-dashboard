@@ -7,21 +7,21 @@ export default function TokenStatus({ status }: { status: boolean }) {
       className={clsx(
         'inline-flex items-center rounded-full px-2 py-1 text-xs',
         {
-          'bg-gray-100 text-gray-500': status,
-          'bg-green-500 text-white': !status,
+          'bg-green-500 text-white': status,
+          'bg-gray-100 text-gray-500': !status,
         },
       )}
     >
       {status ? (
         <>
           Active
-          <ClockIcon className="ml-1 w-4 text-gray-500" />
+          <CheckIcon className="ml-1 w-4 text-white" />
         </>
       ) : null}
       {!status ? (
         <>
           Inactive
-          <CheckIcon className="ml-1 w-4 text-white" />
+          <ClockIcon className="ml-1 w-4 text-gray-500" />
         </>
       ) : null}
     </span>
