@@ -1,6 +1,7 @@
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { invalidateToken } from '@/app/lib/token/actions';
+import {Button} from "@nextui-org/react";
 
 export function GenerateToken() {
   return (
@@ -29,10 +30,9 @@ export function InvalidateToken({ id }: { id: number }) {
   const invalidateTokenWithId = invalidateToken.bind(null, id);
   return (
     <form action={invalidateTokenWithId}>
-      <button className="rounded-md border p-2 hover:bg-gray-100">
-        <span className="sr-only">Delete</span>
-        <TrashIcon className="w-5" />
-      </button>
+      <Button  isIconOnly   type="submit" >
+         <TrashIcon className="w-5" />
+      </Button>    
     </form>
   );
 }

@@ -5,10 +5,12 @@ import prisma from '@/prisma/db';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signJwt } from '@/app/lib/utils';
+// const TOKEN_EXPIRES_IN  = {'oneYear': 31536000, 'oneMonth': 2592000};
 
 const FormSchema = z.object({
   domain: z.string(),
   id: z.number(),
+  expire: z.string(),
 });
 
 const GenerateToken = FormSchema.omit({ id: true });
@@ -16,14 +18,17 @@ const GenerateToken = FormSchema.omit({ id: true });
 type State = {
   errors?: {
     domain?: string[];
+    expire?: string[];
   };
   message?: string | null;
 };
 
 export async function generateToken(prevState: State, formData: FormData) {
   // Validate form fields using Zod
+
   const validatedFields = GenerateToken.safeParse({
     domain: formData.get('domain'),
+    expire: formData.get('expire'),
   });
 
   // If form validation fails, return errors early. Otherwise, continue.
@@ -35,18 +40,19 @@ export async function generateToken(prevState: State, formData: FormData) {
   }
 
   // Prepare data for insertion into the database
-  const { domain } = validatedFields.data;
+  const { domain,expire } = validatedFields.data;
   // console.log(domain, 'domain');
 
   // Insert data into the database
+  const expireAt =  new Date(
+    Date.now() + parseInt(expire),
+  )
   try {
     const respone = await prisma.token.create({
       data: {
         domain,
-        token: signJwt(domain),
-        expireAt: new Date(
-          Date.now() + parseInt(process.env.TOKEN_EXPIRES_IN!),
-        ),
+        token: signJwt(domain,expire),
+        expireAt
       },
     });
     // console.log(respone, 'respone');

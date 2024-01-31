@@ -1,7 +1,7 @@
-import Pagination from '@/app/ui/tokens/pagination';
+import Pagination from '@/app/ui/tokens/components/pagination';
 import Search from '@/app/ui/search';
 import Table from '@/app/ui/tokens/table';
-import { GenerateToken } from '@/app/ui/tokens/buttons';
+import { GenerateToken } from '@/app/ui/tokens/components/buttons';
 import { aliFont } from '@/app/ui/fonts';
 import { TokenTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
