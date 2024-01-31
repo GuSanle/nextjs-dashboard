@@ -69,7 +69,7 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
   ];
 };
 
-export const signJwt = (domain: string,expiresIn:string) => {
+export const signJwt = (domain: string, expiresIn: string) => {
   const secret = process.env.TOKEN_SECRET!;
 
   const token = jwt.sign({ domain }, secret, {

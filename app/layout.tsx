@@ -1,7 +1,7 @@
 import '@/app/ui/global.css';
 import { aliFont } from '@/app/ui/fonts';
 import { Metadata } from 'next';
-import {Providers} from "./providers";
+import { Providers } from './providers';
 
 export const metadata: Metadata = {
   title: {
@@ -19,7 +19,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${aliFont.className} antialiased`}> <Providers>{children}</Providers></body>
+      <body className={`${aliFont.className} antialiased`}>
+        {' '}
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

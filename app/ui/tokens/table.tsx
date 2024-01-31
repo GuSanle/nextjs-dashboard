@@ -1,7 +1,7 @@
 import { InvalidateToken } from '@/app/ui/tokens/components/buttons';
 import TokenStatus from '@/app/ui/tokens/components/status';
 import { fetchFilteredTokens } from '@/app/lib/token/data';
-import  TokenValue  from '@/app/ui/tokens/components/tokenValue';
+import TokenValue from '@/app/ui/tokens/components/tokenValue';
 
 export default async function TokenTable({
   query,
@@ -12,7 +12,6 @@ export default async function TokenTable({
 }) {
   const tokens = await fetchFilteredTokens(query, currentPage);
 
- 
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
@@ -49,7 +48,7 @@ export default async function TokenTable({
                     </div>
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                      <TokenValue token={token.token}></TokenValue>  
+                    <TokenValue token={token.token}></TokenValue>
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {token.expireAt.toISOString().split('T')[0]}

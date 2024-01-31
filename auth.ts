@@ -13,14 +13,13 @@ async function getUser(email: string) {
     // const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
     const user = await prisma.user.findUnique({ where: { email } });
     return user;
-    
+
     // return user.rows[0];
   } catch (error) {
     console.error('Failed to fetch user:', error);
     throw new Error('Failed to fetch user.');
   }
 }
-
 
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,

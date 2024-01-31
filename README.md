@@ -26,17 +26,18 @@ For more information, see the [course curriculum](https://nextjs.org/learn) on t
 2. 如果是页面请求，使用session认证
 
 ## 注意
-
+不使用pnpm，因为pnpm会使得prettier失效。应该是一些依赖关系的原因。
 文件名如果错误，会导致页面无法访问，比如middleware.ts后面多了一个空格，会导致中间件失效。坑了几天。。
 
 ## prisma 步骤
-
 npx prisma generate
 //初始化数据库
 npx prisma migrate dev --name init
 //重置数据库
 npx prisma migrate reset
 //添加初始数据
-pnpm run seed
+npm run seed
 //使用单例
 import prisma from '@/prisma/db';
+
+

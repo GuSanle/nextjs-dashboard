@@ -1,7 +1,6 @@
 'use client';
 
-
-export default function TokenValue( { token }: { token: string } ) {
+export default function TokenValue({ token }: { token: string }) {
   const copyToken = (token: string) => {
     navigator.clipboard.writeText(token);
   };
@@ -13,12 +12,12 @@ export default function TokenValue( { token }: { token: string } ) {
     return token.slice(0, maxLength) + '...';
   };
   return (
-  <div
-    className="cursor-pointer"
-    onClick={() => copyToken( token)}
-    title={ token}
-  >
-    {truncateToken( token, 10)}
-  </div>
-  )
+    <div
+      className="cursor-pointer"
+      onClick={() => copyToken(token)}
+      title={token}
+    >
+      {truncateToken(token, 10)}
+    </div>
+  );
 }

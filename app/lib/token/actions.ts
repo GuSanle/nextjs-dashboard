@@ -40,19 +40,17 @@ export async function generateToken(prevState: State, formData: FormData) {
   }
 
   // Prepare data for insertion into the database
-  const { domain,expire } = validatedFields.data;
+  const { domain, expire } = validatedFields.data;
   // console.log(domain, 'domain');
 
   // Insert data into the database
-  const expireAt =  new Date(
-    Date.now() + parseInt(expire),
-  )
+  const expireAt = new Date(Date.now() + parseInt(expire));
   try {
     const respone = await prisma.token.create({
       data: {
         domain,
-        token: signJwt(domain,expire),
-        expireAt
+        token: signJwt(domain, expire),
+        expireAt,
       },
     });
     // console.log(respone, 'respone');
