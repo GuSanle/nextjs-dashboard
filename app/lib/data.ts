@@ -1,8 +1,10 @@
 import prisma from '@/prisma/db';
 import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from 'next/cache';
+// import { Invoice } from './definitions';
+import { Invoice, Customer, Revenue, User } from '@prisma/client';
 
-export async function fetchRevenue() {
+export async function fetchRevenue(): Promise<Revenue[]> {
   // Add noStore() here to prevent the response from being cached.
   // This is equivalent to in fetch(..., {cache: 'no-store'}).
   noStore();
@@ -25,7 +27,7 @@ export async function fetchRevenue() {
   }
 }
 
-export async function fetchLatestInvoices() {
+export async function fetchLatestInvoices(): Promise<Invoice[]> {
   noStore();
   try {
     // const data = await sql<LatestInvoiceRaw>`
@@ -58,7 +60,7 @@ export async function fetchLatestInvoices() {
       },
     });
 
-    const latestInvoices = data.map((invoice) => ({
+    const latestInvoices = data.map((invoice: Invoice) => ({
       ...invoice,
       amount: formatCurrency(invoice.amount),
     }));
@@ -138,7 +140,7 @@ const ITEMS_PER_PAGE = 6;
 export async function fetchFilteredInvoices(
   query: string,
   currentPage: number,
-) {
+): Promise<Invoice[]> {
   noStore();
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
@@ -263,7 +265,7 @@ export async function fetchInvoicesPages(query: string) {
   }
 }
 
-export async function fetchInvoiceById(id: string) {
+export async function fetchInvoiceById(id: string): Promise<Invoice> {
   noStore();
   try {
     // const data = await sql<InvoiceForm>`
@@ -292,7 +294,7 @@ export async function fetchInvoiceById(id: string) {
     //   // Convert amount from cents to dollars
     //   amount: invoice.amount / 100,
     // }));
-    const invoice = data.map((invoice) => ({
+    const invoice = data.map((invoice: Invoice) => ({
       ...invoice,
       amount: invoice.amount / 100,
     }));
@@ -304,7 +306,7 @@ export async function fetchInvoiceById(id: string) {
   }
 }
 
-export async function fetchCustomers() {
+export async function fetchCustomers(): Promise<Customer[]> {
   try {
     // const data = await sql<CustomerField>`
     //   SELECT
@@ -332,7 +334,9 @@ export async function fetchCustomers() {
   }
 }
 
-export async function fetchFilteredCustomers(query: string) {
+export async function fetchFilteredCustomers(
+  query: string,
+): Promise<Customer[]> {
   noStore();
   try {
     // const data = await sql<CustomersTableType>`
@@ -386,10 +390,10 @@ export async function fetchFilteredCustomers(query: string) {
     //   total_pending: formatCurrency(customer.total_pending),
     //   total_paid: formatCurrency(customer.total_paid),
     // }));
-    const customers = data.map((customer) => ({
+    const customers = data.map((customer: Customer) => ({
       ...customer,
       total_pending: formatCurrency(
-        customer.invoice.reduce((acc, curr) => {
+        customer.invoice.reduce((acc: Invoice, curr: Invoice) => {
           if (curr.status === 'pending') {
             return acc + curr.amount;
           }
@@ -397,7 +401,7 @@ export async function fetchFilteredCustomers(query: string) {
         }, 0),
       ),
       total_paid: formatCurrency(
-        customer.invoice.reduce((acc, curr) => {
+        customer.invoice.reduce((acc: Invoice, curr: Invoice) => {
           if (curr.status === 'paid') {
             return acc + curr.amount;
           }
@@ -413,7 +417,7 @@ export async function fetchFilteredCustomers(query: string) {
   }
 }
 
-export async function getUser(email: string) {
+export async function getUser(email: string): Promise<User> {
   try {
     // const user = await sql`SELECT * FROM users WHERE email=${email}`;
     const user = await prisma.user.findUnique({

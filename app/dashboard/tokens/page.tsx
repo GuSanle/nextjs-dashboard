@@ -1,6 +1,6 @@
 import Pagination from '@/app/ui/tokens/components/pagination';
 import Search from '@/app/ui/search';
-import Table from '@/app/ui/tokens/table';
+import TokenTable from '@/app/ui/tokens/table';
 import { GenerateToken } from '@/app/ui/tokens/components/buttons';
 import { aliFont } from '@/app/ui/fonts';
 import { TokenTableSkeleton } from '@/app/ui/skeletons';
@@ -33,7 +33,7 @@ export default async function Page({
         <GenerateToken />
       </div>
       <Suspense key={query + currentPage} fallback={<TokenTableSkeleton />}>
-        <Table query={query} currentPage={currentPage} />
+        <TokenTable query={query} currentPage={currentPage} />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">
         <Pagination totalPages={totalPages} />

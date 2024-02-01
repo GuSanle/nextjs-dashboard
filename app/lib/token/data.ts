@@ -1,7 +1,8 @@
 import prisma from '@/prisma/db';
+import { Token } from '@prisma/client';
 import { unstable_noStore as noStore } from 'next/cache';
 
-export async function fetchAllTokens() {
+export async function fetchAllTokens(): Promise<Token[]> {
   try {
     const domainToken = await prisma.token.findMany();
     return domainToken;
@@ -26,7 +27,10 @@ export async function fetchTokensPages(query: string) {
   }
 }
 
-export async function fetchFilteredTokens(query: string, currentPage: number) {
+export async function fetchFilteredTokens(
+  query: string,
+  currentPage: number,
+): Promise<Token[]> {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   try {
     const domainTokens = await prisma.token.findMany({
